@@ -1,0 +1,11 @@
+#board {
+    height: 100vh;  
+    background-image: url("../forest-game-background-d-application-vector-design-tileable-horizontally-size-ready-parallax-effect-73706218.jpeg");
+    background-size: cover;
+}
+
+.player {
+}
+
+.obstacle {
+}
