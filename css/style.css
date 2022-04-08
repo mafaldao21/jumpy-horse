@@ -5,7 +5,9 @@
 }
 
 .player {
+    background-image: url(..//HorseIcons-04-1.png);
 }
 
 .obstacle {
+    background-image: url(../2174132.png);
 }
