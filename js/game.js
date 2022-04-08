@@ -4,6 +4,7 @@ class Game {
         this.IntervalId = null;
         this.player = null;
         this.obstacles = [];
+        this.books = [];
         this.create = create;
         this.draw = draw;
         this.lives = 3;
@@ -11,6 +12,11 @@ class Game {
 
     // create and draw player:
     start() {
+        this.player = new Player();
+        this.player.domElement = this.create("player");
+        this.draw(this.player);
+
+        this.runGame()
 
     }
 
@@ -20,19 +26,27 @@ class Game {
             //move obstacles
             this.obstacles.forEach( (obstacle) => {
 
+               
+
+            },)
+
+            //create and draw obstacles
+           
+            //move books
+            this.books.forEach( (book) => {
+               
 
             })
 
-            //create and draw obstacles
-            if(){
-            }
-
+            //create and draw books
+           
             this.time++
 
-        }, 30);
+        }, Math.floor(Math.random()*5));
     }
 
     detectCollision(obstacle){
+        
 
     };
 
@@ -40,7 +54,21 @@ class Game {
 
     };
 
-    makeHorseJump(){
+
+    detectCatch(book){
+
+    };
+
+    detectBookLost(book) {
+
+    };
+
+    makePlayerMove(direction){
+        if(direction==="up"){
+            this.player.moveUp();
+        } if(direction=="down"){
+            this.player.moveDown();
+        }
 
     }
 }
@@ -48,13 +76,17 @@ class Game {
 
 class Player {
     constructor() {
-        this.positionX = 20;
-        this.positionY = 0;
+        this.positionX = 0;
+        this.positionY = 50;
         this.domElement = null;
     }
 
-    horseJump() {
+    moveUp() {
+        this.positionY++ ;
+    }
 
+    moveDown() {
+        this.positionY-- ;
     }
 }
 
@@ -66,4 +98,16 @@ class Obstacle {
         this.domElement= null;
     }
 
+    obstacleApproach() {
+
+    }
+
+}
+
+class Book {
+    constructor(){
+        this.positionX = 100;
+        this.positionY = Math.floor(Math.random() * 90);
+        this.domElement = null;
+    }
 }

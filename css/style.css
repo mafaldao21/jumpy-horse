@@ -1,13 +1,24 @@
 #board {
+    position: relative;
     height: 100vh;  
-    background-image: url("../forest-game-background-d-application-vector-design-tileable-horizontally-size-ready-parallax-effect-73706218.jpeg");
+    background-image: url("../5-Most-Beautiful-Libraries-You-Should-Know-.jpeg");
     background-size: cover;
 }
 
 .player {
-    background-image: url(..//HorseIcons-04-1.png);
+    position: absolute;
+    content: url(../librarianicon.png);
+    height: 30vh;
 }
 
 .obstacle {
-    background-image: url(../2174132.png);
+    position: absolute;
+    content: url(../616-6164081_blue-fluffy-monster-cute-sweetmonster-monstruo-peludo-hd.png);
+    height: 10vh;
+}
+
+.book {
+    position: absolute;
+    content: url(../book.png);
+    height: 15vh;
 }
