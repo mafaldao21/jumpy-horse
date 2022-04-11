@@ -5,16 +5,33 @@ class Game {
         this.time = 0;
         this.lives = 3;
         this.booksCaught = 0;
-        this.player = new Player();
         this.bookInterval = null;
         this.monsterInterval = null;
+        this.board = document.getElementById("board");
     }
 
-    createNewPlayer(){;
-        const board = document.getElementById("board");
-        this.player.className = "player";
-        document.createElement("player");
-        board.appendChild(librarian);
+    createNewPlayer(){
+        const player = new Player();
+        const librarian = document.createElement("img");
+        librarian.className = "librarian";
+        this.board.appendChild(librarian);
+    };
+
+    createNewMonster() {
+        const monster = new Monster()
+        monster.className = "monster";
+        document.createElement("img");
+        this.board.appendChild(monster);
+        this.monsters.push(monster);
+    };
+
+    createNewBook() {
+        const book = new Book()
+        book.className = "book";
+        document.createElement("book");
+        this.board.appendChild(book);
+        this.books.push(book);
+
     };
 
     startGame() {
@@ -24,40 +41,30 @@ class Game {
 
         
         this.monsterInterval = setInterval( () => {
-            const newMonster = new Monster();
-            newMonster.className = "monster";
-            document.createElement("monster");
-            board.appendChild(monster);
-            this.monsters.push(newMonster);
-
+        
             this.monsters.forEach( (monster) => {
             monster.monsterApproach();
             monster.collisionDetection();
             })
             
-        }, 50);
+        }, 50)
 
 
         this.bookInterval = setInterval( () => {
-            const newMonster = new Monster();
-            newMonster.className = "monster";
-            document.createElement("monster");
-            board.appendChild(monster);
-            this.monsters.push(newMonster);
 
-            this.monsters.forEach( (monster) => {
-            monster.monsterApproach();
-            monster.collisionDetection();
+            this.books.forEach( (book) => {
+            book.bookApproach();
+            this.catchDetection();
             })
             
-        }, 50);
-    }
+        }, 50)
+    };
 
     removeMonster(monster){
         this.monsters.shift(monster);
         const elem = document.querySelector("monster");
         elem.board.removeChild(monster);
-    }
+    };
 
     collisionDetection(obstacle) {
         if(blabla){
@@ -99,16 +106,16 @@ class Player {
     }
 
     movePlayer() {
-        document.addEventListener("keydown", (event) => {
-            if(event.key === "ArrowUp"){
-                this.positionY++;
-            } if(event.key === "ArrowDown"){
-                this.positionY--;
+        window.addEventListener("keydown", (event) => {
+            if(event.key=== "ArrowUp") {
+                this.positionY++
+            } else if (event.key === "ArrowDown") {
+                this.positionY--
             }
+        })
+    }
 
-    }
-    }
-}
+}     
 
 //monster
 
