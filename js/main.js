@@ -11,11 +11,12 @@ function createElement(className) {
 
 
 function drawDomElm(instance){
-    const img = new Image(); // Create new <img> element
-    if(instance.className==="player"){
-         instance.domElement.innerHTML = this.img.src = '../librarianicon.png'
-    }
-   
+    instance.domElement.style.width = instance.width + "vw";
+    instance.domElement.style.height = instance.height + "vh";
+
+    instance.domElement.style.left = instance.positionX + "vw";
+    instance.domElement.style.bottom = instance.positionY + "vh";
+    
 }
 
 
@@ -27,7 +28,7 @@ game.start();
 
 //event listeners
 
-document.addEventList("keydown", (event) => {
+document.addEventListener("keydown", (event) => {
     if(event.key === "ArrowUp"){
         game.makePlayerMove("up");
     } if(event.key === "ArrowDown"){

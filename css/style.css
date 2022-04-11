@@ -1,24 +1,24 @@
 #board {
-    position: relative;
+    position:relative;
     height: 100vh;  
     background-image: url("../5-Most-Beautiful-Libraries-You-Should-Know-.jpeg");
     background-size: cover;
 }
 
 .player {
-    position: absolute;
+    position:absolute;
     content: url(../librarianicon.png);
     height: 30vh;
 }
 
 .obstacle {
-    position: absolute;
-    content: url(../616-6164081_blue-fluffy-monster-cute-sweetmonster-monstruo-peludo-hd.png);
-    height: 10vh;
+    position:absolute;
+    content: url(../447-4472384_monster-royalty-free-inc-cartoon-monster.png);
+    height: 15vh;
 }
 
 .book {
-    position: absolute;
+    position:absolute;
     content: url(../book.png);
     height: 15vh;
 }
