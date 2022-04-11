@@ -8,17 +8,20 @@
 .player {
     position:absolute;
     content: url(../librarianicon.png);
-    height: 30vh;
+    height: 300px;
+    width: 300px;
 }
 
 .obstacle {
     position:absolute;
     content: url(../447-4472384_monster-royalty-free-inc-cartoon-monster.png);
-    height: 15vh;
+    height: 150px;
+    width: 150px;
 }
 
 .book {
     position:absolute;
     content: url(../book.png);
-    height: 15vh;
+    height: 150px;
+    width: 150px;
 }
