@@ -5,73 +5,133 @@ class Game {
         this.time = 0;
         this.lives = 3;
         this.booksCaught = 0;
-        this.bookInterval = null;
-        this.monsterInterval = null;
+        this.newInterval = null;
         this.board = document.getElementById("board");
+        this.librarian = null;
+        this.monster = null;
+        this.book = null
     }
 
     createNewPlayer(){
-        const player = new Player();
-        const librarian = document.createElement("img");
-        librarian.className = "librarian";
-        this.board.appendChild(librarian);
+        this.librarian = new Player();
+        this.librarian.domLibrarian = document.createElement("img");
+        this.librarian.domLibrarian.className = "player";
+        this.librarian.domLibrarian.src = "../img/librarianicon.png";
+        this.librarian.domLibrarian.style.height = this.librarian.height + "px";
+        this.librarian.domLibrarian.style.width = this.librarian.width + "px";
+        this.board.appendChild(this.librarian.domLibrarian);
+        this.librarian.domLibrarian.style.left = this.librarian.positionX + "vw"
+        this.librarian.domLibrarian.style.bottom = this.librarian.positionY + "vh"
     };
 
     createNewMonster() {
-        const monster = new Monster()
-        monster.className = "monster";
-        document.createElement("img");
-        this.board.appendChild(monster);
-        this.monsters.push(monster);
+        this.monster = new Monster()
+        this.monster.domMonster = document.createElement("img");
+        this.monster.domMonster.className = "obstacle";
+        this.monster.domMonster.src = "../img/447-4472384_monster-royalty-free-inc-cartoon-monster.png";
+        this.monster.domMonster.style.height = this.monster.height + "px";
+        this.monster.domMonster.style.width = this.monster.width + "px";
+        this.board.appendChild(this.monster.domMonster);
+        this.monsters.push(this.monster);
+        //document.getElementsByClassName("obstacle")[0].style.top = this.monster.positionY + "%"
+        //this.monster.domMonster.style.top = this.monster.positionY + "%"
+        this.monster.domMonster.style.left =  this.monster.positionX + "vw"
+        this.monster.domMonster.style.bottom =  this.monster.positionY + "vh"
     };
 
     createNewBook() {
-        const book = new Book()
-        book.className = "book";
-        document.createElement("book");
-        this.board.appendChild(book);
-        this.books.push(book);
+        this.book = new Book()
+        this.book.domBook = document.createElement("img");
+        this.book.domBook.className = "book";
+        
+        this.book.domBook.src = "../img/book.png";
+        this.book.domBook.style.height = this.book.height + "px";
+        this.book.domBook.style.width = this.book.width + "px";
+        this.board.appendChild(this.book.domBook);
+        this.books.push(this.book);
+        //document.getElementsByClassName("book")[0].style.top = this.book.positionX + "%";
+        this.book.domBook.style.left =  this.book.positionX + "vw"
+        this.book.domBook.style.bottom =  this.book.positionY + "vh"
 
     };
 
-    startGame() {
-        this.time++;
+    movePlayer() {
+        window.addEventListener("keydown", (event) => {
+            if(event.key=== "ArrowUp") {
+                this.librarian.positionY++;
+                //document.getElementsByClassName("player")[0].style.bottom = this.positionY + "%";
+                
+            } else if (event.key === "ArrowDown") {
+                this.librarian.positionY--
+                //document.getElementsByClassName("player")[0].style.bottom = this.positionY + "%";
+            }
+            this.librarian.domLibrarian.style.left = this.librarian.positionX + "vw"
+            this.librarian.domLibrarian.style.bottom = this.librarian.positionY + "vh"
+            
+        });
+                
+    }
+    
 
+    runGame(){ 
         this.createNewPlayer();
+        this.movePlayer();
 
-        
-        this.monsterInterval = setInterval( () => {
-        
-            this.monsters.forEach( (monster) => {
-            monster.monsterApproach();
-            monster.collisionDetection();
-            })
+        this.newInterval = setInterval( () => {
             
-        }, 50)
+                if(this.time%60===0){
+                    this.createNewBook()
+                    this.createNewMonster()
+                }
+               
+
+                this.monsters.forEach( (monster) => {
+                    //move, draw again, detectcollision
+                    monster.positionX--;
+                    //document.getElementsByClassName("obstacle")[0].style.left = this.positionX + "%";
+                    this.collisionDetection(monster);
+
+                    monster.domMonster.style.left =  monster.positionX + "vw"
+                    monster.domMonster.style.bottom =  monster.positionY + "vh"
+                })
+                
+                
+                 this.books.forEach( (book) => {
+                    book.positionX--;
+                    //document.getElementsByClassName("book")[0].style.left = this.positionX + "%";
+                    book.domBook.style.left =  book.positionX + "vw"
+                    book.domBook.style.bottom =  book.positionY + "vh"
+                })
+
+                
 
 
-        this.bookInterval = setInterval( () => {
+            this.time++     
+                 
 
-            this.books.forEach( (book) => {
-            book.bookApproach();
-            this.catchDetection();
-            })
-            
-        }, 50)
+        }, 50);
+     
+    
     };
+  
 
     removeMonster(monster){
         this.monsters.shift(monster);
         const elem = document.querySelector("monster");
-        elem.board.removeChild(monster);
+        //elem.board.removeChild(monster);
+        this.board.removeChild(elem);
     };
 
-    collisionDetection(obstacle) {
-        if(blabla){
+    collisionDetection(monster) {
+        if(this.librarian.positionX < monster.positionX + monster.width &&
+            this.librarian.positionX + this.librarian.width > monster.positionX &&
+            this.librarian.positionY < monster.positionY + monster.height &&
+            this.librarian.height + this.librarian.positionY > monster.positionY && this.lives>1){
             this.lives --;
+            console.log("Moooonster")
             alert("Oh no! You were caught by a dust monster! You have " + this.lives +  " lives left");
             this.removeMonster(monster);
-        }
+        } 
 
     }
 
@@ -98,11 +158,11 @@ class Game {
 class Player {
     constructor() {
         this.positionX = 0;
-        this.positionY = Math.floor(Math.random() * 90);
-        this.className = "player";
-        this.height = 200;
-        this.width = 300;
-        this.domElement = null;
+        this.positionY = 35;
+        this.domLibrarian = null;
+        this.height = 300;
+        this.width = 300
+
     }
 
     movePlayer() {
@@ -122,15 +182,13 @@ class Player {
 class Monster {
     constructor() {
         this.positionX = 100;
-        this.positionY = Math.floor(Math.random() * 90);
-        this.className = "obstacle";
-        this.domElement = null;
+        this.positionY = Math.floor(Math.random() * 80);
+        this.domMonster = null;
+        this.width = 150;
+        this.height = 150
     }
 
-    monsterApproach() {
-        this.positionX--;
-    }
-}
+};
 
 //book
 
@@ -138,15 +196,12 @@ class Book {
     constructor() {
         this.positionX = 100;
         this.positionY = Math.floor(Math.random() * 90);
-        this.className = "book";
-        this.domElement = null;
-    }
-
-    bookApproach() {
-        this.positionX--;
+        this.domBook = null;
+        this.width = 150;
+        this.height = 150;
     }
 }
 
 
 const game = new Game();
-game.startGame();
+game.runGame();

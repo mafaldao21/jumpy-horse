@@ -1,0 +1,16 @@
+div {
+    background-color: rgba(207, 152, 162, 0.848);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    margin: 150px;
+}
+
+img {
+    margin: 20px;
+    justify-content: center;
+}

@@ -1,27 +1,23 @@
 #board {
     position:relative;
     height: 100vh;  
-    background-image: url("../5-Most-Beautiful-Libraries-You-Should-Know-.jpeg");
+    width: 100vw;
+    background-image: url(../img/5-Most-Beautiful-Libraries-You-Should-Know-.jpeg);
     background-size: cover;
 }
 
 .player {
     position:absolute;
-    content: url(../librarianicon.png);
-    height: 300px;
-    width: 300px;
+    /* bottom: 35%;
+    left: 0%; */
 }
 
 .obstacle {
     position:absolute;
-    content: url(../447-4472384_monster-royalty-free-inc-cartoon-monster.png);
-    height: 150px;
-    width: 150px;
+    /* left: 100%; */   
 }
 
 .book {
     position:absolute;
-    content: url(../book.png);
-    height: 150px;
-    width: 150px;
+    /* left: 100%; */
 }
