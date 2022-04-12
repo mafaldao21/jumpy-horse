@@ -9,7 +9,8 @@ class Game {
         this.board = document.getElementById("board");
         this.librarian = null;
         this.monster = null;
-        this.book = null
+        this.book = null;
+        this.bookCounter = document.getElementById("books")
     }
 
     createNewPlayer(){
@@ -148,6 +149,11 @@ class Game {
 
         }
     }
+    
+    removeBook(book) {
+        this.books.shift(book);
+        this.board.removeChild(document.querySelector(".book"));
+    }
 
     removeMonster(){
         this.monsters.shift(this.monster);
@@ -164,11 +170,7 @@ class Game {
         }
     }
 
-    removeBook(book) {
-        this.books.shift(book);
-        const elem = document.querySelector("book");
-        elem.board.removeChild(book);
-    }
+    
 
     catchDetection(book) {
         if(this.librarian.positionX < book.positionX + book.width &&
@@ -176,7 +178,9 @@ class Game {
             this.librarian.positionY < book.positionY + book.height &&
             this.librarian.height + this.librarian.positionY > book.positionY && this.booksCaught<4) {
             this.booksCaught++;
+            
             alert("You got one! You now have " + this.booksCaught +  " out of 5 books!");
+            this.books.innerHTML() = "${this.booksCaught}";
             this.removeBook(book);
         } else if(this.librarian.positionX < book.positionX + book.width &&
             this.librarian.positionX + this.librarian.width > book.positionX &&

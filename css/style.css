@@ -29,3 +29,18 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
     align-items: flex-end;
 }
+
+#books{
+    color:darkred;
+    position: fixed;
+    left: 92vw;
+    top: 3vh;
+}
+
+.counter {
+    color:white;
+    width: 100px;
+    position: absolute;
+    left: 89vw;
+}
+
