@@ -21,3 +21,11 @@
     position:absolute;
     /* left: 100%; */
 }
+
+.button {
+    padding: 10px 20px;
+    background-color: antiquewhite;
+    border-radius: 8%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    align-items: flex-end;
+}

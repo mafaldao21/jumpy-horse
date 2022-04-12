@@ -71,6 +71,16 @@ class Game {
         });
                 
     }
+
+    startMusic(str) {
+        const music = new Audio('../music/Lobo Loco - Dancing Sparrows B (ID 610) - Remastered.mp3');
+        if(str==="start"){
+            music.play();
+        } else if(str==="pause" && music.pause===false) {
+            music.pause(); 
+        }
+        
+    }
     
 
     runGame(){ 
@@ -82,27 +92,29 @@ class Game {
                 if(this.time%60===0){
                     this.createNewBook()
                     this.createNewMonster()
+                    
                 }
                
 
                 this.monsters.forEach( (monster) => {
                     //move, draw again, detectcollision
                     monster.positionX--;
-                    //document.getElementsByClassName("obstacle")[0].style.left = this.positionX + "%";
-                    this.collisionDetection(monster);
-
                     monster.domMonster.style.left =  monster.positionX + "vw"
                     monster.domMonster.style.bottom =  monster.positionY + "vh"
+                    this.collisionDetection(this.monster);
+                    
                 })
                 
                 
                  this.books.forEach( (book) => {
                     book.positionX--;
-                    //document.getElementsByClassName("book")[0].style.left = this.positionX + "%";
                     book.domBook.style.left =  book.positionX + "vw"
                     book.domBook.style.bottom =  book.positionY + "vh"
+                    this.catchOutside(book);
+                    this.catchDetection(book);
                 })
-
+                    
+                   
                 
 
 
@@ -115,24 +127,41 @@ class Game {
     };
   
 
-    removeMonster(monster){
-        this.monsters.shift(monster);
-        const elem = document.querySelector("monster");
-        //elem.board.removeChild(monster);
-        this.board.removeChild(elem);
-    };
+   
 
     collisionDetection(monster) {
         if(this.librarian.positionX < monster.positionX + monster.width &&
             this.librarian.positionX + this.librarian.width > monster.positionX &&
             this.librarian.positionY < monster.positionY + monster.height &&
-            this.librarian.height + this.librarian.positionY > monster.positionY && this.lives>1){
-            this.lives --;
-            console.log("Moooonster")
-            alert("Oh no! You were caught by a dust monster! You have " + this.lives +  " lives left");
+            this.librarian.height + this.librarian.positionY > monster.positionY && this.lives >1){
+            this.lives--;
+            alert("Oh no! You were caught by a Dusty! You have " + this.lives +  " lives left");
             this.removeMonster(monster);
-        } 
+        } else if (this.librarian.positionX < monster.positionX + monster.width &&
+            this.librarian.positionX + this.librarian.width > monster.positionX &&
+            this.librarian.positionY < monster.positionY + monster.height &&
+            this.librarian.height + this.librarian.positionY > monster.positionY && this.lives===1){
+            this.lives --;
+            this.removeMonster(monster);
+            alert("Oh no! You were defeated by the Dusties!");
+            window.open(blabla) //link to game over page
 
+        }
+    }
+
+    removeMonster(){
+        this.monsters.shift(this.monster);
+        this.board.removeChild(document.querySelector(".obstacle"));
+    };
+
+    catchOutside() {
+        if(this.book.positionX < 0) {
+            this.removeBook()
+        }
+
+        if(this.monster.positionX < 0) {
+            this.removeMonster()
+        }
     }
 
     removeBook(book) {
@@ -142,15 +171,29 @@ class Game {
     }
 
     catchDetection(book) {
-        if(blabla){
+        if(this.librarian.positionX < book.positionX + book.width &&
+            this.librarian.positionX + this.librarian.width > book.positionX &&
+            this.librarian.positionY < book.positionY + book.height &&
+            this.librarian.height + this.librarian.positionY > book.positionY && this.booksCaught<4) {
             this.booksCaught++;
             alert("You got one! You now have " + this.booksCaught +  " out of 5 books!");
             this.removeBook(book);
+        } else if(this.librarian.positionX < book.positionX + book.width &&
+            this.librarian.positionX + this.librarian.width > book.positionX &&
+            this.librarian.positionY < book.positionY + book.height &&
+            this.librarian.height + this.librarian.positionY > book.positionY && this.booksCaught===4) {
+            this.booksCaught++;
+            alert("You got all five books!");
+            this.removeBook(book);
+            //window.open(blabla) //open you did it
+
         }
 
-    }
+    } 
 
+    
 }
+
 
 
 //player
@@ -160,15 +203,15 @@ class Player {
         this.positionX = 0;
         this.positionY = 35;
         this.domLibrarian = null;
-        this.height = 300;
-        this.width = 300
+        this.height = 200;
+        this.width = 200;
 
     }
 
     movePlayer() {
         window.addEventListener("keydown", (event) => {
             if(event.key=== "ArrowUp") {
-                this.positionY++
+                this.positionY++;
             } else if (event.key === "ArrowDown") {
                 this.positionY--
             }
