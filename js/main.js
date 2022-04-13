@@ -43,6 +43,7 @@ class Game {
 
     createNewBook() {
         const book = new Book()
+        
         book.domBook = document.createElement("img");
         book.domBook.className = "book";
         
@@ -50,10 +51,11 @@ class Game {
         book.domBook.style.height = book.height + "px";
         book.domBook.style.width = book.width + "px";
         this.board.appendChild(book.domBook);
-        this.books.push(book);
         //document.getElementsByClassName("book")[0].style.top = this.book.positionX + "%";
         book.domBook.style.left =  book.positionX + "vw"
         book.domBook.style.bottom =  book.positionY + "vh"
+        this.books.push(book);
+        
 
     };
 
@@ -126,10 +128,6 @@ class Game {
                     //this.catchOutside(book);
                     this.catchDetection(book);
                 })
-                    
-                   
-                
-
 
             this.time++     
                  
@@ -196,24 +194,21 @@ class Game {
         if(this.librarian.positionX < book.positionX + book.width &&
             this.librarian.positionX + this.librarian.width > book.positionX &&
             this.librarian.positionY < book.positionY + book.height &&
-            this.librarian.height + this.librarian.positionY > book.positionY && this.booksCaught<4) {
-                if (this.booksCaught<4) {
-                    this.booksCaught++;
-                    //alert("You got one! You now have " + this.booksCaught +  " out of 5 books!");
-                    document.getElementById("books").innerHTML = `${this.booksCaught}`;
-                    this.removeBook(book);
-                }
-                else {
-                    this.booksCaught++;
+            this.librarian.height + this.librarian.positionY > book.positionY) {
+                this.booksCaught++;
+                document.getElementById("books").innerHTML = `${this.booksCaught}`;
+                console.log("You got one! You now have " + this.booksCaught +  " out of 5 books!");
+                this.removeBook(book);
+            }
+                
+        if (this.booksCaught===5) {
                     //alert("You got all five books!");
                      this.removeBook(book);
                     //window.open("../youdidit.html") 
                 }
 
     } 
-
     
-    }
 }
 
 
