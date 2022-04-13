@@ -1,7 +1,12 @@
+body {
+    background-color: rgb(136, 61, 74);
+}
+
 #board {
     position:relative;
-    height: 100vh;  
-    width: 100vw;
+    margin: 20px;
+    height: 80vh;  
+    width: 95vw;
     background-image: url(../img/5-Most-Beautiful-Libraries-You-Should-Know-.jpeg);
     background-size: cover;
 }
@@ -14,33 +19,28 @@
 
 .obstacle {
     position:absolute;
-    /* left: 100%; */   
+    object-fit: contain;
 }
 
 .book {
     position:absolute;
-    /* left: 100%; */
+    object-fit: contain;
 }
 
 .button {
-    padding: 10px 20px;
-    background-color: antiquewhite;
-    border-radius: 8%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 2px 20px;
+    background-color: rgb(239, 231, 220);
+    border-radius: 2%;
+    font-family: 'Georgia';
+    color: brown;
     align-items: flex-end;
 }
 
 #books{
-    color:darkred;
-    position: fixed;
-    left: 92vw;
+    position:relative;
+    color:white;
+    left: 88vw;
     top: 3vh;
 }
 
-.counter {
-    color:white;
-    width: 100px;
-    position: absolute;
-    left: 89vw;
-}
 
