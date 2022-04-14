@@ -44,7 +44,7 @@ class Game {
         book.domBook = document.createElement("img");
         book.domBook.className = "book";
         
-        book.domBook.src = "../img/book.png";
+        book.domBook.src = "./img/book.png";
         book.domBook.style.height = book.height + "px";
         book.domBook.style.width = book.width + "px";
         this.board.appendChild(book.domBook);
