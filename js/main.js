@@ -238,7 +238,7 @@ class Player {
 class Monster {
     constructor() {
         this.positionX = 1150;
-        this.positionY = Math.floor(Math.random() * 700);
+        this.positionY = (Math.floor(Math.random() * 700) - 50);
         this.domMonster = null;
         this.width = 80;
         this.height = 80
@@ -251,7 +251,7 @@ class Monster {
 class Book {
     constructor() {
         this.positionX = 1150;
-        this.positionY = Math.floor(Math.random() * 700);
+        this.positionY = (Math.floor(Math.random() * 700) - 50);
         this.domBook = null;
         this.width = 100;
         this.height = 100;
