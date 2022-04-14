@@ -129,7 +129,7 @@ class Game {
                     this.catchDetection(book);
                 })
 
-            this.time++     
+            this.time++ 
                  
 
         }, 50);
@@ -147,13 +147,13 @@ class Game {
             this.librarian.height + this.librarian.positionY > monster.positionY){
             if (this.lives > 1) {
                 this.lives--
-                this.removeMonster(monster);
+                //this.removeMonster(monster);
                 console.log("monster")
                 //alert("Oh no! You were caught by a Dusty! You have " + this.lives +  " lives left");
             }
             else {
                 this.lives --;
-                this.removeMonster(monster);
+                //this.removeMonster(monster);
                 //alert("Oh no! You were defeated by the Dusties!");
                 //window.open("../gameover.html") 
             }
@@ -164,7 +164,7 @@ class Game {
     
     removeBook(book) {
         this.books.shift(book);
-        this.board.removeChild(document.querySelector(".book"));
+        this.board.removeChild(book.domBook);
     }
 
     removeMonster(monster){
@@ -198,7 +198,7 @@ class Game {
                 this.booksCaught++;
                 document.getElementById("books").innerHTML = `${this.booksCaught}`;
                 console.log("You got one! You now have " + this.booksCaught +  " out of 5 books!");
-                this.removeBook(book);
+                //this.removeBook(book);
             }
                 
         if (this.booksCaught===5) {
