@@ -4,8 +4,8 @@ body {
 
 #board {
     position:relative;
-    margin: 20px;
-    height: 80vh;  
+    margin: 10px;
+    height: 95vh;  
     width: 95vw;
     background-image: url(../img/5-Most-Beautiful-Libraries-You-Should-Know-.jpeg);
     background-size: cover;
@@ -38,9 +38,17 @@ body {
 
 #books{
     position:relative;
+    font-size: 15px;
     color:white;
-    left: 88vw;
-    top: 3vh;
+    left: 2vw;
+}
+
+
+#lives{
+    position:relative;
+    font-size: 15px;
+    color:white;
+    left: 2vw;
 }
 
 

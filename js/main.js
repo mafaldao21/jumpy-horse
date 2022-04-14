@@ -8,8 +8,6 @@ class Game {
         this.newInterval = null;
         this.board = document.getElementById("board");
         this.librarian = null;
-        //this.monster = null;
-        //this.book = null;
         this.music = new Audio('../music/Lobo Loco - Dancing Sparrows B (ID 610) - Remastered.mp3');
         this.bookCounter = document.getElementById("books")
     }
@@ -18,12 +16,13 @@ class Game {
         this.librarian = new Player();
         this.librarian.domLibrarian = document.createElement("img");
         this.librarian.domLibrarian.className = "player";
+        //this.librarian.domLibrarian.src = "../img/librarianicon.png";
         this.librarian.domLibrarian.src = "../img/librarianicon.png";
         this.librarian.domLibrarian.style.height = this.librarian.height + "px";
         this.librarian.domLibrarian.style.width = this.librarian.width + "px";
         this.board.appendChild(this.librarian.domLibrarian);
-        this.librarian.domLibrarian.style.left = this.librarian.positionX + "vw"
-        this.librarian.domLibrarian.style.bottom = this.librarian.positionY + "vh"
+        this.librarian.domLibrarian.style.left = this.librarian.positionX + "px"
+        this.librarian.domLibrarian.style.bottom = this.librarian.positionY + "px"
     };
 
     createNewMonster() {
@@ -35,10 +34,8 @@ class Game {
         monster.domMonster.style.width = monster.width + "px";
         this.board.appendChild(monster.domMonster);
         this.monsters.push(monster);
-        //document.getElementsByClassName("obstacle")[0].style.top = this.monster.positionY + "%"
-        //this.monster.domMonster.style.top = this.monster.positionY + "%"
-        monster.domMonster.style.left =  monster.positionX + "vw"
-        monster.domMonster.style.bottom =  monster.positionY + "vh"
+        monster.domMonster.style.left =  monster.positionX + "px"
+        monster.domMonster.style.bottom =  monster.positionY + "px"
     };
 
     createNewBook() {
@@ -51,9 +48,8 @@ class Game {
         book.domBook.style.height = book.height + "px";
         book.domBook.style.width = book.width + "px";
         this.board.appendChild(book.domBook);
-        //document.getElementsByClassName("book")[0].style.top = this.book.positionX + "%";
-        book.domBook.style.left =  book.positionX + "vw"
-        book.domBook.style.bottom =  book.positionY + "vh"
+        book.domBook.style.left =  book.positionX + "px"
+        book.domBook.style.bottom =  book.positionY + "px"
         this.books.push(book);
         
 
@@ -62,15 +58,12 @@ class Game {
     movePlayer() {
         window.addEventListener("keydown", (event) => {
             if(event.key=== "ArrowUp") {
-                this.librarian.positionY++;
-                //document.getElementsByClassName("player")[0].style.bottom = this.positionY + "%";
-                
+                this.librarian.positionY+=10;
             } else if (event.key === "ArrowDown") {
-                this.librarian.positionY--
-                //document.getElementsByClassName("player")[0].style.bottom = this.positionY + "%";
+                this.librarian.positionY-=10;
             }
-            this.librarian.domLibrarian.style.left = this.librarian.positionX + "vw"
-            this.librarian.domLibrarian.style.bottom = this.librarian.positionY + "vh"
+            this.librarian.domLibrarian.style.left = this.librarian.positionX + "px"
+            this.librarian.domLibrarian.style.bottom = this.librarian.positionY + "px"
             
         });
                 
@@ -80,25 +73,12 @@ class Game {
         const music = new Audio('../music/Lobo Loco - Dancing Sparrows B (ID 610) - Remastered.mp3');
         music.play();   
     } 
-
-    togglePlay() {
-        let isPlaying = false;
-        
-        isPlaying ? this.music.pause() : this.music.play();
-
-        if(onplaying(this.music)) {
-            isPlaying = true;
-          };
-
-        if(onpause(this.music)) {
-            isPlaying = false;
-        };
-      };
        
       
     
 
     runGame(){ 
+        window.alert("You must collect 5 rare books from the Restricted Section of the Library. Your very job depends on it!\n\nDon't forget to watch out for the Dusties, they have a really sharp bite.\n\nUse ArrowUp to move the librarian up, ArrowDown to move down.")
         this.createNewPlayer();
         this.movePlayer();
 
@@ -109,23 +89,25 @@ class Game {
                     this.createNewMonster()
                     
                 }
+
                
 
                 this.monsters.forEach( (monster) => {
                     //move, draw again, detectcollision
-                    monster.positionX--;
-                    monster.domMonster.style.left =  monster.positionX + "vw"
-                    monster.domMonster.style.bottom =  monster.positionY + "vh"
+                    monster.positionX-=9;
+                    monster.domMonster.style.left =  monster.positionX + "px"
+                    monster.domMonster.style.bottom =  monster.positionY + "px"
                     this.collisionDetection(monster);
+                    this.catchOutside(monster);
                     
                 })
                 
                 
                  this.books.forEach( (book) => {
-                    book.positionX--;
-                    book.domBook.style.left =  book.positionX + "vw"
-                    book.domBook.style.bottom =  book.positionY + "vh"
-                    //this.catchOutside(book);
+                    book.positionX-=5;
+                    book.domBook.style.left =  book.positionX + "px"
+                    book.domBook.style.bottom =  book.positionY + "px"
+                    this.catchOutside(book);
                     this.catchDetection(book);
                 })
 
@@ -145,18 +127,24 @@ class Game {
             this.librarian.positionX + this.librarian.width > monster.positionX &&
             this.librarian.positionY < monster.positionY + monster.height &&
             this.librarian.height + this.librarian.positionY > monster.positionY){
+                console.log("hits monster")
             if (this.lives > 1) {
-                this.lives--
-                //this.removeMonster(monster);
-                console.log("monster")
-                //alert("Oh no! You were caught by a Dusty! You have " + this.lives +  " lives left");
+                
+                this.lives--;
+                document.getElementById("lives").innerHTML = `${this.lives}/3 Lives Left`;
+                this.removeMonster(monster);
+                alert("Oh no! You were caught by a Dusty! You have " + this.lives +  " lives left");
             }
             else {
                 this.lives --;
-                //this.removeMonster(monster);
-                //alert("Oh no! You were defeated by the Dusties!");
-                //window.open("../gameover.html") 
+                this.removeMonster(monster);
+                alert("Oh no! You were defeated by the Dusties!");
+                window.open("../gameover.html")
+                this.time===0;
+                this.booksCaught===0;
+                this.lives===3;
             }
+            
         
 
         }
@@ -164,7 +152,7 @@ class Game {
     
     removeBook(book) {
         this.books.shift(book);
-        this.board.removeChild(book.domBook);
+        this.board.removeChild(document.querySelector(".book"));
     }
 
     removeMonster(monster){
@@ -195,16 +183,20 @@ class Game {
             this.librarian.positionX + this.librarian.width > book.positionX &&
             this.librarian.positionY < book.positionY + book.height &&
             this.librarian.height + this.librarian.positionY > book.positionY) {
+              
+             if(this.booksCaught<5) {
                 this.booksCaught++;
-                document.getElementById("books").innerHTML = `${this.booksCaught}`;
-                console.log("You got one! You now have " + this.booksCaught +  " out of 5 books!");
-                //this.removeBook(book);
+                document.getElementById("books").innerHTML = `${this.booksCaught}/5 Books`;
+                alert("You got one! You now have " + this.booksCaught +  " out of 5 books!");
+                this.removeBook(book);
+             }
             }
                 
         if (this.booksCaught===5) {
-                    //alert("You got all five books!");
+                    alert("You got all five books!");
                      this.removeBook(book);
-                    //window.open("../youdidit.html") 
+                    window.open("../youdidit.html") 
+                    this.time===0;
                 }
 
     } 
@@ -218,21 +210,11 @@ class Game {
 class Player {
     constructor() {
         this.positionX = 0;
-        this.positionY = 35;
+        this.positionY = 250;
         this.domLibrarian = null;
         this.height = 200;
-        this.width = 200;
+        this.width = 150;
 
-    }
-
-    movePlayer() {
-        window.addEventListener("keydown", (event) => {
-            if(event.key=== "ArrowUp") {
-                this.positionY++;
-            } else if (event.key === "ArrowDown") {
-                this.positionY--
-            }
-        })
     }
 
 }     
@@ -241,11 +223,11 @@ class Player {
 
 class Monster {
     constructor() {
-        this.positionX = 85;
-        this.positionY = Math.floor(Math.random() * 70);
+        this.positionX = 700;
+        this.positionY = Math.floor(Math.random() * 700);
         this.domMonster = null;
-        this.width = 150;
-        this.height = 150
+        this.width = 80;
+        this.height = 80
     }
 
 };
@@ -254,11 +236,11 @@ class Monster {
 
 class Book {
     constructor() {
-        this.positionX = 85;
-        this.positionY = Math.floor(Math.random() * 70);
+        this.positionX = 700;
+        this.positionY = Math.floor(Math.random() * 700);
         this.domBook = null;
-        this.width = 150;
-        this.height = 150;
+        this.width = 100;
+        this.height = 100;
     }
 }
 
