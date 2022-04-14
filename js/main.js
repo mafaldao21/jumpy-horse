@@ -143,10 +143,14 @@ class Game {
                 this.lives --;
                 this.removeMonster(monster);
                 alert("Oh no! You were defeated by the Dusties!");
-                window.open("./gameover.html")
+                window.location.replace("./gameover.html")
                 this.time===0;
                 this.booksCaught===0;
                 this.lives===3;
+                this.books=[];
+                this.monsters=[];
+                this.domBook=null;
+                this.domMonster=null;
             }
             
         
@@ -199,8 +203,14 @@ class Game {
         if (this.booksCaught===5) {
                     alert("You got all five books!");
                      this.removeBook(book);
-                    window.open("./youdidit.html") 
+                    window.location.replace("./youdidit.html") 
                     this.time===0;
+                    this.booksCaught===0;
+                    this.lives===3;
+                    this.books=[];
+                    this.monsters=[];
+                    this.domBook=null;
+                    this.domMonster=null;
                 }
 
     } 
