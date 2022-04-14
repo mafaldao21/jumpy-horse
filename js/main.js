@@ -17,7 +17,7 @@ class Game {
         this.librarian.domLibrarian = document.createElement("img");
         this.librarian.domLibrarian.className = "player";
         //this.librarian.domLibrarian.src = "../img/librarianicon.png";
-        this.librarian.domLibrarian.src = "../img/librarianicon.png";
+        this.librarian.domLibrarian.src = "./img/librarianicon.png";
         this.librarian.domLibrarian.style.height = this.librarian.height + "px";
         this.librarian.domLibrarian.style.width = this.librarian.width + "px";
         this.board.appendChild(this.librarian.domLibrarian);
@@ -29,7 +29,7 @@ class Game {
         const monster = new Monster()
         monster.domMonster = document.createElement("img");
         monster.domMonster.className = "obstacle";
-        monster.domMonster.src = "../img/447-4472384_monster-royalty-free-inc-cartoon-monster.png";
+        monster.domMonster.src = "./img/447-4472384_monster-royalty-free-inc-cartoon-monster.png";
         monster.domMonster.style.height = monster.height + "px";
         monster.domMonster.style.width = monster.width + "px";
         this.board.appendChild(monster.domMonster);
@@ -70,7 +70,7 @@ class Game {
     }
 
     startMusic() {
-        const music = new Audio('../music/Lobo Loco - Dancing Sparrows B (ID 610) - Remastered.mp3');
+        const music = new Audio('./music/Lobo Loco - Dancing Sparrows B (ID 610) - Remastered.mp3');
         music.play();   
     } 
        
@@ -86,6 +86,10 @@ class Game {
             
                 if(this.time%60===0){
                     this.createNewBook()
+                    
+                }
+
+                if(this.time%50===0){
                     this.createNewMonster()
                     
                 }
@@ -94,7 +98,7 @@ class Game {
 
                 this.monsters.forEach( (monster) => {
                     //move, draw again, detectcollision
-                    monster.positionX-=9;
+                    monster.positionX-=15;
                     monster.domMonster.style.left =  monster.positionX + "px"
                     monster.domMonster.style.bottom =  monster.positionY + "px"
                     this.collisionDetection(monster);
@@ -139,7 +143,7 @@ class Game {
                 this.lives --;
                 this.removeMonster(monster);
                 alert("Oh no! You were defeated by the Dusties!");
-                window.open("../gameover.html")
+                window.open("./gameover.html")
                 this.time===0;
                 this.booksCaught===0;
                 this.lives===3;
@@ -195,7 +199,7 @@ class Game {
         if (this.booksCaught===5) {
                     alert("You got all five books!");
                      this.removeBook(book);
-                    window.open("../youdidit.html") 
+                    window.open("./youdidit.html") 
                     this.time===0;
                 }
 
@@ -223,7 +227,7 @@ class Player {
 
 class Monster {
     constructor() {
-        this.positionX = 700;
+        this.positionX = 1150;
         this.positionY = Math.floor(Math.random() * 700);
         this.domMonster = null;
         this.width = 80;
@@ -236,7 +240,7 @@ class Monster {
 
 class Book {
     constructor() {
-        this.positionX = 700;
+        this.positionX = 1150;
         this.positionY = Math.floor(Math.random() * 700);
         this.domBook = null;
         this.width = 100;
