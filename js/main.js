@@ -250,7 +250,7 @@ class Monster {
 
 class Book {
     constructor() {
-        this.positionX = 1150;
+        this.positionX = 2000;
         this.positionY = (Math.floor(Math.random() * 1000 - 10) );
         this.domBook = null;
         this.width = 100;
